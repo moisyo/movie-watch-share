@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>info</title>
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
+    <script defer src="/__/firebase/7.1.0/firebase-app.js"></script>
+    <script defer src="/__/firebase/7.1.0/firebase-auth.js"></script>
+    <script defer src="/__/firebase/7.1.0/firebase-database.js"></script>
+    <script defer src="/__/firebase/init.js"></script>
+    <script>
+
+    var firebaseConfig = {
+      apiKey: "AIzaSyBNAhgBqnY0YRUYOcAqOvmpxL3vkB8sLZs",
+      authDomain: "movie-watch-share.firebaseapp.com",
+      databaseURL: "https://movie-watch-share.firebaseio.com",
+      projectId: "movie-watch-share",
+      storageBucket: "movie-watch-share.appspot.com",
+      messagingSenderId: "875520351580",
+      appId: "1:875520351580:web:ad71c0783ec344c9c03599",
+      measurementId: "G-6SW581FH0C"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+  </head>
+  <body>
+    <h1>add</h1>
+
+
+  <script>
+    var database = firebase.database();
+    function writeUserData(name, email,uid) {
+  firebase.database().ref('users/1').set({
+    username: name,
+    email: email,
+    uid: uid,
+  });
+}
+  writeUserData(user.displayName,user.email,user.uid);
+  </script>
+  </body>
+</html>

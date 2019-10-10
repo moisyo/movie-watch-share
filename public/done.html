@@ -66,13 +66,13 @@
     // User is signed in.
     console.log(user.email);
     function writeUserData(name, email,uid) {
-  firebase.database().ref('users/1').set({
+  firebase.database().ref('users/' + uid).set({
     username: name,
     email: email,
-    uid: uid,
   });
-  writeUserData(user.displayName,user.email,user.uid);
 }
+  writeUserData(user.displayName,user.email,user.uid);
+
   } else {
     // No user is signed in.
     console.log("nothing");
