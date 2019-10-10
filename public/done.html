@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Hello Firebase Auth (ログアウト)</title>
+  <style type="text/css">
+    .hide{ display:none; }
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
+  <script>
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyBNAhgBqnY0YRUYOcAqOvmpxL3vkB8sLZs",
+    authDomain: "movie-watch-share.firebaseapp.com",
+    databaseURL: "https://movie-watch-share.firebaseio.com",
+    projectId: "movie-watch-share",
+    storageBucket: "movie-watch-share.appspot.com",
+    messagingSenderId: "875520351580",
+    appId: "1:875520351580:web:ad71c0783ec344c9c03599",
+    measurementId: "G-6SW581FH0C"
+  };
+  firebase.initializeApp(firebaseConfig);
+</script>
+</head>
+<body>
+  <h1>...Please wait</h1>
+  <div id="info"></div>
+  <div id="user"></div>
+  <form>
+    <button type="button" id="login" class="hide">ログイン</button>
+  </form>
+  <form>
+    <button type="button" id="logout" class="hide">ログアウト</button>
+  </form>
+
+  <script defer src="/__/firebase/7.1.0/firebase-app.js"></script>
+  <script defer src="/__/firebase/7.1.0/firebase-auth.js"></script>
+  <script defer src="/__/firebase/7.1.0/firebase-database.js"></script>
+  <!-- <script src="/js/config.js"></script> -->
+
+
+  <script>
+  var database = firebase.database();
+    firebase.auth().onAuthStateChanged( (user) => {
+      let login = document.getElementById("login");
+      let logout = document.getElementById("logout");
+
+      // ログインチェック
+      //-----------------------------------
+      if(! user) {
+        showMessage('Not Login', 'ログインしていません');
+        logout.classList.add("hide");
+        login.classList.remove("hide");
+        return(false);
+      }
+
+      //-----------------------------------
+      // ログイン者への処理
+      //-----------------------------------
+      // ログインメッセージ
+      showMessage('Login Complete!', `${user.displayName}さんがログインしました`);
+
+      firebase.initializeApp(firebaseConfig);
+      firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    console.log(user.email);
+    function writeUserData(name, email,uid) {
+  firebase.database().ref('users/1').set({
+    username: name,
+    email: email,
+    uid: uid,
+  });
+  writeUserData(user.displayName,user.email,user.uid);
+}
+  } else {
+    // No user is signed in.
+    console.log("nothing");
+  }
+});
+
+
+    //   var user = firebase.auth().currentUser;
+    //   var name, email, uid;
+    //   console.log(user);
+    //
+    //   if (user != null) {
+    //   name = user.displayName;
+    //   console.log(name);
+    //   email = user.email;
+    //   console.log(email);
+    //   uid = user.uid;
+    //   console.log(uid);
+    // }
+    // document.getElementById("user").innerHTML = name;
+
+      // ログアウトボタンを表示
+      logout.classList.remove("hide");
+      firebase.initializeApp(firebaseConfig);
+
+      // ログアウトボタンを押した
+      logout.addEventListener("click", ()=>{
+        firebase.auth().signOut().then(()=>{
+          console.log("ログアウトしました");
+
+        })
+        .catch( (error)=>{
+          console.log(`ログアウト時にエラーが発生しました (${error})`);
+        });
+      });
+    });
+      //ログインボタンを押した
+      login.addEventListener("click", ()=>{
+        window.location.href = 'sample.html';
+      })
+    /**
+     * メッセージ表示
+     **/
+    function showMessage(title, msg){
+      document.querySelector('h1').innerText = title;
+      document.querySelector('#info').innerText = msg;
+    }
+  </script>
+</body>
+</html>

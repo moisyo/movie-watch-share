@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script defer src="/__/firebase/7.1.0/firebase-app.js"></script>
+    <script defer src="/__/firebase/7.1.0/firebase-auth.js"></script>
+    <script src="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <!-- <script src="/js/config.js"></script> -->
+    <script defer src="/__/firebase/init.js"></script>
+  </head>
+
+  <body>
+    <p>loading..</p>
+    <div id="firebaseui-auth-container"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyBNAhgBqnY0YRUYOcAqOvmpxL3vkB8sLZs",
+        authDomain: "movie-watch-share.firebaseapp.com",
+        databaseURL: "https://movie-watch-share.firebaseio.com",
+        projectId: "movie-watch-share",
+        storageBucket: "movie-watch-share.appspot.com",
+        messagingSenderId: "875520351580",
+        appId: "1:875520351580:web:ad71c0783ec344c9c03599",
+        measurementId: "G-6SW581FH0C"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script type="text/javascript">
+            var ui = new firebaseui.auth.AuthUI(firebase.auth());
+
+            var uiConfig = {
+              callbacks: {
+                signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                  return true;
+                },
+                uiShown: function() {
+                  document.getElementById('loader').style.display = 'none';
+                }
+              },
+              signInFlow: 'popup',
+              signInSuccessUrl: './done.html',
+              signInOptions: [
+                firebase.auth.EmailAuthProvider.PROVIDER_ID,
+              ],
+            };
+            ui.start('#firebaseui-auth-container', uiConfig);
+        </script>
+  </body>
+</html>
